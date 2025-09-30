@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Admin;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
@@ -13,11 +12,10 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default admin user if not exists
         if (!Admin::where('username', 'admin')->exists()) {
             Admin::create([
                 'username' => 'admin',
-                'password_hash' => Hash::make('password123'),
+                'password' => env('ADMIN_DEFAULT_PASSWORD', 'password123'),
             ]);
         }
     }

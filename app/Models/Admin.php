@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
     use HasFactory, HasUuids;
 
@@ -18,7 +18,7 @@ class Admin extends Model
      */
     protected $fillable = [
         'username',
-        'password_hash',
+        'password',
     ];
 
     /**
@@ -41,18 +41,18 @@ class Admin extends Model
     ];
 
     /**
-     * Set the password attribute.
+     * Mutator to hash the password into the password_hash column.
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute(string $value): void
     {
         $this->attributes['password_hash'] = Hash::make($value);
     }
 
     /**
-     * Verify the password against the hash.
+     * Ensure the authentication system reads the correct password column.
      */
-    public function verifyPassword($password)
+    public function getAuthPassword(): string
     {
-        return Hash::check($password, $this->password_hash);
+        return $this->password_hash;
     }
 }

@@ -86,6 +86,20 @@ p {
     color: #e74c3c;
 }
 
+.logout-form {
+    display: inline;
+}
+
+.nav-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -104,9 +118,12 @@ p {
     background-color: #e74c3c;
     color: white;
     padding: 10px 20px;
+    border: none;
+    cursor: pointer;
     text-decoration: none;
     border-radius: 5px;
     font-weight: 500;
+    display: inline-block;
 }
 
 .logout-btn:hover {
@@ -479,3 +496,7 @@ footer {
         gap: 1.5rem;
     }
 }
+
+
+
+

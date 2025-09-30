@@ -21,14 +21,17 @@
                     <li class="nav-item">
                         <a href="{{ route('products.index') }}" class="nav-link">Products</a>
                     </li>
-                    @if(session()->has('admin_id'))
+                    @auth('admin')
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.logout') }}" class="nav-link">Logout</a>
+                            <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
+                                @csrf
+                                <button type="submit" class="nav-link nav-link-button">Logout</button>
+                            </form>
                         </li>
-                    @endif
+                    @endauth
                 </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
@@ -53,3 +56,4 @@
     @yield('scripts')
 </body>
 </html>
+

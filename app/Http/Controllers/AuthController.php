@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -24,31 +22,31 @@ class AuthController extends Controller
      */
     public function login(Request $request): RedirectResponse
     {
-        $request->validate([
+        $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $admin = Admin::where('username', $request->username)->first();
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
 
-        if ($admin && $admin->verifyPassword($request->password)) {
-            // Store admin info in session
-            session(['admin_id' => $admin->id, 'username' => $admin->username]);
-            return redirect()->route('admin.dashboard');
+            return redirect()->intended(route('admin.dashboard'));
         }
 
-        return redirect()->back()
+        return back()
             ->withInput($request->only('username'))
-            ->withErrors(['credentials' => 'Invalid credentials']);
+            ->withErrors(['username' => 'Invalid credentials provided.']);
     }
 
     /**
      * Handle a logout request.
      */
-    public function logout(): RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
-        session()->invalidate();
-        session()->regenerateToken();
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
     }

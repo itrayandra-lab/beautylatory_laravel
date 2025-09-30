@@ -24,7 +24,10 @@
                         <a href="{{ url('/') }}" class="nav-link">Visit Site</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.logout') }}" class="logout-btn">Logout</a>
+                        <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
+                            @csrf
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
                     </li>
                 </ul>
                 <div class="hamburger">
@@ -45,3 +48,4 @@
 </body>
 
 </html>
+

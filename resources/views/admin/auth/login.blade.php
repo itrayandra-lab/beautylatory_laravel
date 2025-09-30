@@ -65,20 +65,26 @@
     <div class="login-container">
         <h2 style="text-align: center; margin-bottom: 1.5rem;">Admin Login</h2>
 
-        @if(session('error'))
-            <div class="error" style="color: #e74c3c; text-align: center; margin-bottom: 1rem;">{{ session('error') }}</div>
+        @if($errors->any())
+            <div class="error" style="color: #e74c3c; text-align: center; margin-bottom: 1rem;">{{ $errors->first() }}</div>
         @endif
 
         <form method="POST" action="{{ route('admin.login') }}" class="login-form">
             @csrf
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" value="{{ old('username') }}" required>
+                @error('username')
+                    <div class="error">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
+                @error('password')
+                    <div class="error">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="btn-login">Login</button>
