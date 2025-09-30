@@ -17,17 +17,8 @@ class ProductController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Product::with('category')->orderBy('created_at', 'desc');
-
-        // Filter by category if specified
-        if ($request->has('category') && !empty($request->category)) {
-            $query->where('category_id', $request->category);
-        }
-
-        $products = $query->get();
-        $categories = Category::orderBy('name', 'asc')->get();
-
-        return view('products.index', compact('products', 'categories'));
+        $products = Product::with('category')->get();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -141,6 +132,21 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+    }
+
+    public function guestIndex(Request $request)
+    {
+        $query = Product::with('category')->orderBy('created_at', 'desc');
+
+        // Filter by category if specified
+        if ($request->has('category') && !empty($request->category)) {
+            $query->where('category_id', $request->category);
+        }
+
+        $products = $query->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**

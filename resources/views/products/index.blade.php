@@ -1,53 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'Products')
+@section('title', 'All Products')
 
 @section('content')
-    <section class="products-page">
-        <div class="container">
-            <h1>Our Products</h1>
+    <div class="products-page">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">All Products</h1>
+            </div>
+        </section>
 
-            <!-- Category Filter -->
-            <div class="category-filter">
-                <h3>Filter by Category</h3>
-                <div class="category-list">
-                    <a href="{{ route('products.index') }}"
-                        class="category-link {{ !request()->has('category') || empty(request()->get('category')) ? 'active' : '' }}">All
-                        Products</a>
-                    @forelse($categories as $category)
-                        <a href="{{ route('products.index', ['category' => $category->id]) }}"
-                            class="category-link {{ request()->get('category') == $category->id ? 'active' : '' }}">
-                            {{ $category->name }}
-                        </a>
+        <section class="products-grid-section">
+            <div class="container">
+                <div class="products-grid">
+                    @forelse($products as $product)
+                        <div class="product-card">
+                            <a href="{{ route('products.show', $product->id) }}" class="product-card__link">
+                                <div class="product-card__image-container">
+                                    @if (!empty($product->image))
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                            class="product-card__image">
+                                    @else
+                                        <div class="product-card__no-image">No Image</div>
+                                    @endif
+                                </div>
+                                <div class="product-card__info">
+                                    <h3 class="product-card__name">{{ $product->name }}</h3>
+                                    <p class="product-card__price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                                </div>
+                            </a>
+                        </div>
                     @empty
+                        <p class="products-grid__empty">No products found.</p>
                     @endforelse
                 </div>
-            </div>
 
-            <!-- Products Grid -->
-            <div class="products-grid">
-                @if (!empty($products))
-                    @foreach ($products as $product)
-                        <div class="product-card">
-                            @if (!empty($product->image))
-                                <div class="product-image">
-                                    <a href="{{ route('products.show', $product->id) }}">
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                                    </a>
-                                </div>
-                            @endif
-                            <div class="product-info">
-                                <h3>{{ $product->name }}</h3>
-                                <p class="product-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-secondary">View
-                                    Details</a>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p>No products available at the moment.</p>
-                @endif
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 @endsection

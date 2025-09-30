@@ -4,53 +4,49 @@
 
 @section('content')
 <section class="hero">
-    <div class="slider-container">
+    <div class="hero__slider">
         @if(!empty($sliders))
             @foreach($sliders as $index => $slider)
-                <div class="slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
-                    <div class="slide-image">
-                        <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider image">
-                    </div>
+                <div class="hero__slide {{ $index === 0 ? 'hero__slide--active' : '' }}">
+                    <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider image" class="hero__image">
                 </div>
             @endforeach
         @else
-            <div class="slide active">
-                <div class="slide-image">
-                    <img src="{{ asset('images/default-slider.jpg') }}" alt="Welcome to BeautyLatory">
-                </div>
+            <div class="hero__slide hero__slide--active">
+                <img src="{{ asset('images/default-slider.jpg') }}" alt="Welcome to BeautyLatory" class="hero__image">
             </div>
         @endif
-
-        <div class="slider-nav">
-            @for($i = 0; $i < count($sliders); $i++)
-                <span class="slider-dot {{ $i === 0 ? 'active' : '' }}" data-index="{{ $i }}"></span>
-            @endfor
-        </div>
+    </div>
+    <div class="hero__nav">
+        @for($i = 0; $i < count($sliders); $i++)
+            <span class="hero__dot {{ $i === 0 ? 'hero__dot--active' : '' }}" data-index="{{ $i }}"></span>
+        @endfor
     </div>
 </section>
 
 <section class="featured-products">
     <div class="container">
-        <h2>Featured Products</h2>
-        <div class="products-grid">
-            @if(!empty($products))
-                @foreach(array_slice($products->toArray(), 0, 8) as $product)
-                    <div class="product-card">
-                        @if(!empty($product['image']))
-                            <div class="product-image">
-                                <img src="{{ asset('storage/' . $product['image']) }}" alt="{{ $product['name'] }}">
-                            </div>
-                        @endif
-                        <div class="product-info">
-                            <h3>{{ $product['name'] }}</h3>
-                            <p class="product-price">Rp {{ number_format($product['price'], 0, ',', '.') }}</p>
-                            <a href="{{ route('products.show', $product['id']) }}" class="btn btn-secondary">View Details</a>
+        <h2 class="featured-products__title">Featured Products</h2>
+        <div class="featured-products__grid">
+            @forelse($products->take(8) as $product)
+                <div class="product-card">
+                    <a href="{{ route('products.show', $product->id) }}" class="product-card__link">
+                        <div class="product-card__image-container">
+                            @if(!empty($product->image))
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-card__image">
+                            @else
+                                <div class="product-card__no-image">No Image</div>
+                            @endif
                         </div>
-                    </div>
-                @endforeach
-            @else
-                <p>No products available at the moment.</p>
-            @endif
+                        <div class="product-card__info">
+                            <h3 class="product-card__name">{{ $product->name }}</h3>
+                            <p class="product-card__price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        </div>
+                    </a>
+                </div>
+            @empty
+                <p class="featured-products__empty">No products available at the moment.</p>
+            @endforelse
         </div>
     </div>
 </section>

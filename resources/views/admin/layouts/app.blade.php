@@ -4,48 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin - BeautyLatory')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @yield('styles')
+    <title>@yield('title', 'Admin Dashboard') - Beautylatory</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <a href="{{ url('/') }}"><img src="{{ asset('images/asset-logo.png') }}" alt="logo" width="68"></a>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/') }}" class="nav-link">Visit Site</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
-                            @csrf
-                            <button type="submit" class="logout-btn">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+<body class="admin-body">
+    <div class="admin-container">
+        {{-- Sidebar Navigation --}}
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="{{ asset('images/asset-logo-white.png') }}" alt="Logo" class="sidebar-logo">
             </div>
-        </nav>
-    </header>
+            <nav class="sidebar-nav">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
+                <a href="{{ route('admin.slider.index') }}"
+                    class="sidebar-link {{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">Sliders</a>
+                <a href="{{ route('admin.categories.index') }}"
+                    class="sidebar-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">Categories</a>
+                <a href="{{ route('admin.products.index') }}"
+                    class="sidebar-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">Products</a>
+            </nav>
+            <div class="sidebar-footer">
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </aside>
 
-    <main>
-        @yield('content')
-    </main>
+        {{-- Main Content --}}
+        <main class="admin-main">
+            <div class="admin-main__content">
+                @yield('content')
+            </div>
+        </main>
+    </div>
 
     <script src="{{ asset('js/script.js') }}"></script>
-    @yield('scripts')
 </body>
 
 </html>
-

@@ -10,7 +10,7 @@ use App\Http\Controllers\AuthController;
 
 // Frontend routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products', [ProductController::class, 'guestIndex'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // Admin routes
@@ -30,4 +30,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('slider', SliderController::class);
     });
 });
-
