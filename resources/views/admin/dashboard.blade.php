@@ -111,7 +111,7 @@
     <div class="dashboard-header">
         <div>
             <h1>Admin Dashboard</h1>
-            <p>Welcome, {{ session('username') }}!</p>
+            <p>Welcome, {{ auth('admin')->user()->username ?? '' }}!</p>
         </div>
     </div>
 
@@ -147,3 +147,4 @@
     </div>
 </div>
 @endsection
+
