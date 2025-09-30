@@ -1,0 +1,50 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+
+// Frontend routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Admin routes - grouped with admin auth middleware
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Public admin routes (login)
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+    // Protected admin routes
+    Route::middleware(['admin.auth'])->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Admin resource routes
+        Route::resource('products', ProductController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('slider', SliderController::class);
+    });
+});
+
+// Admin routes - grouped with admin auth middleware
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Public admin routes (login)
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+    // Protected admin routes
+    Route::middleware(['admin.auth'])->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Admin resource routes
+        Route::resource('products', ProductController::class)->except(['show']);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('slider', SliderController::class);
+    });
+});
