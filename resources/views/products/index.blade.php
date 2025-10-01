@@ -10,6 +10,21 @@
             </div>
         </section>
 
+        <!-- Category Filter Section -->
+        <section class="category-filter-section">
+            <div class="container">
+                <div class="category-filter-buttons">
+                    <a href="{{ route('products.index') }}" class="category-btn {{ request()->get('category') ? '' : 'active' }}">All Products</a>
+                    @foreach($categories as $category)
+                        <a href="{{ route('products.index', ['category' => $category->id]) }}"
+                           class="category-btn {{ request()->get('category') == $category->id ? 'active' : '' }}">
+                            {{ $category->name }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
         <section class="products-grid-section">
             <div class="container">
                 <div class="products-grid">

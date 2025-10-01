@@ -51,7 +51,7 @@
                 <input type="number" name="price" id="price" class="form-control"
                     value="{{ old('price', $product->price ?? '') }}" required>
             </div>
-
+            
             <div class="form-group">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" id="description" rows="5" class="form-control">{{ old('description', $product->description ?? '') }}</textarea>
@@ -60,7 +60,8 @@
             <div class="form-group">
                 <label for="link" class="form-label">Purchase Link (e.g., Lynk.id)</label>
                 <input type="url" name="lynk_id_link" id="link" class="form-control"
-                    value="{{ old('link', $product->link ?? '') }}" placeholder="https://lynk.id/your-product">
+                    value="{{ old('lynk_id_link', $product->lynk_id_link ?? '') }}"
+                    placeholder="https://lynk.id/your-product">
             </div>
 
             <div class="form-group">

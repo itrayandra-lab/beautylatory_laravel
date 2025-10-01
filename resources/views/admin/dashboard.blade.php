@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Welcome, {{ Auth::guard('admin')->user()->name }}!</h1>
+        <h1 class="dashboard-title">Welcome, {{ Auth::guard('admin')->user()->username }}!</h1>
         <p class="dashboard-subtitle">Here is a summary of your store.</p>
     </div>
 

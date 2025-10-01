@@ -45,6 +45,8 @@ class ProductController extends Controller
             'lynk_id_link' => 'nullable|url',
         ]);
 
+        dd($request->all());
+
         $productData = $request->only(['name', 'category_id', 'price', 'description', 'lynk_id_link']);
 
         // Handle image upload

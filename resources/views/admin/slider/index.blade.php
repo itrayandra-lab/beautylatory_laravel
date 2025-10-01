@@ -21,7 +21,7 @@
                     <tr>
                         <th>#</th>
                         <th>Image</th>
-                        <th>Title</th>
+                        <th>Order</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -33,7 +33,7 @@
                                 <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider Image"
                                     class="table-image-preview">
                             </td>
-                            <td>{{ $slider->title }}</td>
+                            <td>{{ $slider->order }}</td>
                             <td>
                                 <div class="action-buttons">
                                     <a href="{{ route('admin.slider.edit', $slider->id) }}"

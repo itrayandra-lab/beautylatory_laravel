@@ -19,16 +19,12 @@
             </div>
         @endif
 
-        <form action="{{ isset($slider) ? route('admin.slider.update', $slider->id) : route('admin.slider.store') }}" method="POST" enctype="multipart/form-data" class="admin-form">
+        <form action="{{ isset($slider) ? route('admin.slider.update', $slider->id) : route('admin.slider.store') }}"
+            method="POST" enctype="multipart/form-data" class="admin-form">
             @csrf
-            @if(isset($slider))
+            @if (isset($slider))
                 @method('PUT')
             @endif
-
-            <div class="form-group">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $slider->title ?? '') }}" required>
-            </div>
 
             <div class="form-group">
                 <label for="image" class="form-label">Slider Image</label>
@@ -36,8 +32,15 @@
                 <small class="form-text">Recommended size: 1200x500px</small>
             </div>
 
+            <div class="form-group">
+                <label for="order" class="form-label">Order</label>
+                <input type="number" name="order" id="order" class="form-control"
+                    value="{{ old('order', $slider->order ?? '') }}" required>
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="btn btn--primary">{{ isset($slider) ? 'Update Slider' : 'Save Slider' }}</button>
+                <button type="submit"
+                    class="btn btn--primary">{{ isset($slider) ? 'Update Slider' : 'Save Slider' }}</button>
             </div>
         </form>
     </div>

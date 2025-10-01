@@ -24,6 +24,7 @@
                     class="sidebar-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">Categories</a>
                 <a href="{{ route('admin.products.index') }}"
                     class="sidebar-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">Products</a>
+                <a href="{{ url('/') }}" target="_blank" class="sidebar-link">Visit Site</a>
             </nav>
             <div class="sidebar-footer">
                 <form action="{{ route('admin.logout') }}" method="POST">
