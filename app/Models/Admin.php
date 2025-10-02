@@ -22,6 +22,25 @@ class Admin extends Authenticatable
     ];
 
     /**
+     * Update the admin profile information.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function updateProfile(array $data): void
+    {
+        if (isset($data['username'])) {
+            $this->username = $data['username'];
+        }
+
+        if (isset($data['password']) && !empty($data['password'])) {
+            $this->password = $data['password'];
+        }
+
+        $this->save();
+    }
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>

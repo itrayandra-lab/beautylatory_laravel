@@ -22,6 +22,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Protected admin routes
     Route::middleware(['admin.auth'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('/profile', [AdminController::class, 'showProfile'])->name('profile.show');
+        Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
+        Route::put('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // Admin resource routes

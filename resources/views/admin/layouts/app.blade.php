@@ -27,6 +27,7 @@
                 <a href="{{ url('/') }}" target="_blank" class="sidebar-link">Visit Site</a>
             </nav>
             <div class="sidebar-footer">
+                <a href="{{ route('admin.profile.show') }}" class="sidebar-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">Profile</a>
                 <form action="{{ route('admin.logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="logout-btn">Logout</button>
