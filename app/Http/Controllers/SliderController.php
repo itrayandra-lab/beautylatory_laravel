@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
 
 class SliderController extends Controller
 {
@@ -33,11 +33,11 @@ class SliderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
             'order' => 'required|integer|min:1|unique:sliders,order',
         ]);
 
-        $imagePath = $request->file('image')->store('sliders', 'public');
+        $imagePath = FileUploadService::upload($request->file('image'), 'sliders');
 
         Slider::create([
             'image' => $imagePath,
@@ -64,7 +64,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
             'order' => 'required|integer|min:1|unique:sliders,order,' . $slider->id,
         ]);
 
@@ -72,18 +72,11 @@ class SliderController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($slider->image) {
-                Storage::disk('public')->delete($slider->image);
-            }
-            
-            $imagePath = $request->file('image')->store('sliders', 'public');
+            $imagePath = FileUploadService::update($request->file('image'), $slider->image, 'sliders');
             $sliderData['image'] = $imagePath;
         } elseif ($request->has('remove_image') && $request->remove_image) {
             // Delete existing image if requested
-            if ($slider->image) {
-                Storage::disk('public')->delete($slider->image);
-            }
+            FileUploadService::delete($slider->image);
             $sliderData['image'] = null;
         }
 
@@ -100,9 +93,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         // Delete image file if exists
-        if ($slider->image) {
-            Storage::disk('public')->delete($slider->image);
-        }
+        FileUploadService::delete($slider->image);
 
         $slider->delete();
 

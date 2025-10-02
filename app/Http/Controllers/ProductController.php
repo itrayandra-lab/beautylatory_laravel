@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -41,18 +41,18 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
-
-        dd($request->all());
 
         $productData = $request->only(['name', 'category_id', 'price', 'description', 'lynk_id_link']);
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $productData['image'] = $imagePath;
+            $imagePath = FileUploadService::upload($request->file('image'), 'products');
+            if ($imagePath) {
+                $productData['image'] = $imagePath;
+            }
         }
 
         Product::create($productData);
@@ -91,7 +91,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
 
@@ -99,18 +99,11 @@ class ProductController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-
-            $imagePath = $request->file('image')->store('products', 'public');
+            $imagePath = FileUploadService::update($request->file('image'), $product->image, 'products');
             $productData['image'] = $imagePath;
         } elseif ($request->has('remove_image') && $request->remove_image) {
             // Delete existing image if requested
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
+            FileUploadService::delete($product->image);
             $productData['image'] = null;
         }
 
@@ -127,9 +120,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         // Delete image file if exists
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
+        FileUploadService::delete($product->image);
 
         $product->delete();
 

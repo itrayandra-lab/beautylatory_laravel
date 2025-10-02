@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider Image"
+                                <img src="{{ asset($slider->image) }}" alt="Slider Image"
                                     class="table-image-preview">
                             </td>
                             <td>{{ $slider->order }}</td>

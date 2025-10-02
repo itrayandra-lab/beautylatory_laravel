@@ -8,7 +8,7 @@
         @if(!empty($sliders))
             @foreach($sliders as $index => $slider)
                 <div class="hero__slide {{ $index === 0 ? 'hero__slide--active' : '' }}">
-                    <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider image" class="hero__image">
+                    <img src="{{ asset($slider->image) }}" alt="Slider image" class="hero__image">
                 </div>
             @endforeach
         @else
@@ -33,7 +33,7 @@
                     <a href="{{ route('products.show', $product->id) }}" class="product-card__link">
                         <div class="product-card__image-container">
                             @if(!empty($product->image))
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-card__image">
+                                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-card__image">
                             @else
                                 <div class="product-card__no-image">No Image</div>
                             @endif

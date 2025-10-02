@@ -33,7 +33,7 @@
                             <a href="{{ route('products.show', $product->id) }}" class="product-card__link">
                                 <div class="product-card__image-container">
                                     @if (!empty($product->image))
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                             class="product-card__image">
                                     @else
                                         <div class="product-card__no-image">No Image</div>

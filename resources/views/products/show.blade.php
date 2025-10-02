@@ -9,7 +9,7 @@
                 {{-- Product Image Column --}}
                 <div class="product-detail__image-wrapper">
                     @if (!empty($product->image))
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                             class="product-detail__image">
                     @else
                         <div class="product-detail__no-image">

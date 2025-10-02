@@ -33,7 +33,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="table-image-preview">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="table-image-preview">
                                 @else
                                     <span class="no-image-placeholder">No Image</span>
                                 @endif
