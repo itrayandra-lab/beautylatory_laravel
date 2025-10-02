@@ -33,7 +33,7 @@ class SliderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'order' => 'required|integer|min:1|unique:sliders,order',
         ]);
 
@@ -64,7 +64,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'order' => 'required|integer|min:1|unique:sliders,order,' . $slider->id,
         ]);
 

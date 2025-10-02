@@ -41,7 +41,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
 
@@ -91,7 +91,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
 
