@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') - Beautylatory</title>
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="admin-body">
@@ -19,7 +19,7 @@
                 <a href="{{ route('admin.dashboard') }}"
                     class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
                 <a href="{{ route('admin.slider.index') }}"
-                    class="sidebar-link {{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">Sliders</a>
+                    class="sidebar-link {{ request()->routeIs('admin.slider.*') ? 'active' : '' }}">Sliders</a>
                 <a href="{{ route('admin.categories.index') }}"
                     class="sidebar-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">Categories</a>
                 <a href="{{ route('admin.products.index') }}"
@@ -42,7 +42,6 @@
         </main>
     </div>
 
-    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>

@@ -33,12 +33,6 @@
                     value="{{ old('name', $category->name ?? '') }}" required>
             </div>
 
-            <div class="form-group">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" name="slug" id="slug" class="form-control"
-                    value="{{ old('slug', $category->slug ?? '') }}" required>
-            </div>
-
             <div class="form-actions">
                 <button type="submit"
                     class="btn btn--primary">{{ isset($category) ? 'Update Category' : 'Save Category' }}</button>

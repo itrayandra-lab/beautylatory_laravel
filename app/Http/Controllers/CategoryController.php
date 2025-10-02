@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -33,10 +34,12 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
         ]);
 
-        Category::create($request->only(['name', 'slug']));
+        Category::query()->create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
@@ -59,10 +62,12 @@ class CategoryController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
         ]);
 
-        $category->update($request->only(['name', 'slug']));
+        $category->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
