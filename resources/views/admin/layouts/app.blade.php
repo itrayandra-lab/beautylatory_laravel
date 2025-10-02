@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') - Beautylatory</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body class="admin-body">
@@ -42,6 +42,7 @@
         </main>
     </div>
 
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>
