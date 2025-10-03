@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'BeautyLatory')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('styles')
+    <style>
+        @media (max-width: 768px) {
+            .hero__slider {
+                height: auto;
+            }
+
+            .hero__image {
+                height: auto;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <a href="{{ url('/') }}"><img src="{{ asset('images/asset-logo.png') }}" alt="logo" width="68"></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('images/asset-logo.png') }}" alt="logo"
+                            width="68"></a>
                 </div>
                 <ul class="nav-menu">
                     <li class="nav-item">
@@ -55,5 +69,5 @@
     <script src="{{ asset('js/script.js') }}"></script>
     @yield('scripts')
 </body>
-</html>
 
+</html>
