@@ -9,8 +9,7 @@
                 {{-- Product Image Column --}}
                 <div class="product-detail__image-wrapper">
                     @if (!empty($product->image))
-                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                            class="product-detail__image">
+                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-detail__image">
                     @else
                         <div class="product-detail__no-image">
                             <span>No Image Available</span>
@@ -29,7 +28,7 @@
                     <div class="product-detail__actions">
                         <a href="{{ $product->lynk_id_link }}" class="btn btn--primary" target="_blank"
                             rel="noopener noreferrer">
-                            Buy on Lynk.id
+                            Buy Now
                         </a>
                     </div>
                 </div>

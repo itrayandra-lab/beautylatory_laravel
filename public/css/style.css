@@ -1010,7 +1010,12 @@ footer {
         transform: translateY(-8px) rotate(-45deg);
     }
 
+    .hero__slider {
+        height: auto;
+    }
+
     .hero__image {
-        height: 300px;
+        height: auto;
     }
 }
+
