@@ -9,7 +9,7 @@
     </div>
 
     <div class="admin-card">
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
@@ -32,19 +32,23 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                @if($product->image)
-                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="table-image-preview">
+                                @if ($product->image)
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                        class="table-image-preview">
                                 @else
                                     <span class="no-image-placeholder">No Image</span>
                                 @endif
                             </td>
-                            <td>{{ $product->name }}</td>
+                            <td>{{ strlen($product->name) > 25 ? substr($product->name, 0, 25) . '...' : $product->name }}
+                            </td>
                             <td>{{ $product->category->name ?? 'Uncategorized' }}</td>
                             <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn--secondary btn--small">Edit</a>
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                    <a href="{{ route('admin.products.edit', $product->id) }}"
+                                        class="btn btn--secondary btn--small">Edit</a>
+                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this product?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn--danger btn--small">Delete</button>
