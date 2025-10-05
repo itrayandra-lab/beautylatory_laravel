@@ -51,7 +51,7 @@
                 <input type="number" name="price" id="price" class="form-control"
                     value="{{ old('price', $product->price ?? '') }}" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" id="description" rows="5" class="form-control">{{ old('description', $product->description ?? '') }}</textarea>
