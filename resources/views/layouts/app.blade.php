@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('styles')
     <style>
+        .nav-container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
         @media (max-width: 768px) {
             .hero__slider {
                 height: auto;
