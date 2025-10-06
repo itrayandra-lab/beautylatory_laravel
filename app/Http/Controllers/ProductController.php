@@ -136,10 +136,34 @@ class ProductController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        $products = $query->get();
+        $products = $query->paginate(12); // Show 12 products per page
         $categories = Category::orderBy('name', 'asc')->get();
 
         return view('products.index', compact('products', 'categories'));
+    }
+
+    /**
+     * Load more products via AJAX
+     */
+    public function loadMore(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $category = $request->get('category');
+
+        $query = Product::with('category')->orderBy('created_at', 'desc');
+
+        // Filter by category if specified
+        if (!empty($category)) {
+            $query->where('category_id', $category);
+        }
+
+        $products = $query->paginate(12, ['*'], 'page', $page);
+
+        return response()->json([
+            'products' => $products->items(),
+            'hasMorePages' => $products->hasMorePages(),
+            'nextPageUrl' => $products->nextPageUrl(),
+        ]);
     }
 
     /**

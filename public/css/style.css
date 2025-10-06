@@ -12,6 +12,32 @@
     --box-shadow: 0 10px 30px rgba(74, 166, 240, 0.12);
 }
 
+/* Load More Button Styles */
+.load-more-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.loading-spinner {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/* Product grid transition for smooth loading */
+.product-card {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.product-card.loading {
+    opacity: 0.6;
+}
+
 /* === BASE STYLES === */
 *,
 *::before,

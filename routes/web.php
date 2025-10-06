@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'guestIndex'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/products/load-more', [ProductController::class, 'loadMore'])->name('products.load-more');
 
 // Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
