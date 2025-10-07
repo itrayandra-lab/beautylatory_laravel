@@ -40,12 +40,13 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
+            'discount_price' => 'nullable|integer|min:0',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
 
-        $productData = $request->only(['name', 'category_id', 'price', 'description', 'lynk_id_link']);
+        $productData = $request->only(['name', 'category_id', 'price', 'discount_price', 'description', 'lynk_id_link']);
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -90,12 +91,13 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0',
+            'discount_price' => 'nullable|integer|min:0',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB
             'lynk_id_link' => 'nullable|url',
         ]);
 
-        $productData = $request->only(['name', 'category_id', 'price', 'description', 'lynk_id_link']);
+        $productData = $request->only(['name', 'category_id', 'price', 'discount_price', 'description', 'lynk_id_link']);
 
         // Handle image upload
         if ($request->hasFile('image')) {

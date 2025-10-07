@@ -1,4 +1,4 @@
-/* === VARIABLES === */
+﻿/* === VARIABLES === */
 :root {
     --primary-color: #4aa6f0; /* Soft baby blue primary tone */
     --secondary-color: #7fc8ff; /* Sky blue accent */
@@ -902,10 +902,35 @@ footer {
     border-radius: 5px;
 }
 
+.no-image-placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 10px;
+    display: block;
+}
+
 /* Action Buttons in Table */
 .action-buttons {
     display: flex;
     gap: 0.5rem;
+}
+
+/* Badge Styles */
+.badge--success {
+    background-color: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.badge--warning {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
 }
 
 .btn--secondary {
@@ -929,6 +954,22 @@ footer {
     font-size: 0.875rem;
 }
 
+.btn--warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+.btn--warning:hover {
+    background-color: #e0a800;
+}
+
+.btn--success {
+    background-color: #28a745;
+    color: white;
+}
+.btn--success:hover {
+    background-color: #218838;
+}
+
 /* Success Alert */
 .alert-success {
     background-color: #d4edda;
@@ -939,7 +980,7 @@ footer {
 /*
  * =========================================
  * === ADMIN GENERIC FORM PAGES ===
- * =========================================
+* =========================================
  */
 
 .admin-form .form-text {
@@ -982,6 +1023,35 @@ footer {
     padding-top: 1.5rem;
     display: flex;
     justify-content: flex-end; /* Tombol di sebelah kanan */
+}
+
+/* Form Grid Layout */
+.form-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-col-8 {
+    flex: 8;
+}
+
+.form-col-4 {
+    flex: 4;
+}
+
+/* Image Thumbnail */
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Admin Form Specific */
+.admin-form {
+    /* Any form-specific styling if needed */
 }
 
 /* === Media Query for larger screens (Desktop) === */
@@ -1043,4 +1113,39 @@ footer {
     .hero__image {
         height: auto;
     }
+}
+
+/* Strikethrough price styles for discount display */
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9em;
+    margin-right: 8px;
+    display: block;
+}
+
+.discounted-price {
+    color: #e74c3c;
+    font-weight: bold;
+    display: block;
+}
+
+/* Admin panel price styles */
+.original-price-admin {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.85em;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.discounted-price-admin {
+    color: #e74c3c;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
 }

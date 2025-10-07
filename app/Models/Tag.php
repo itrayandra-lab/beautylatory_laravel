@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Product extends Model
+class Tag extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +19,7 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
-        'category_id',
-        'price',
-        'discount_price',
-        'description',
-        'image',
-        'lynk_id_link',
+        'slug',
     ];
 
     /**
@@ -37,18 +33,22 @@ class Product extends Model
     ];
 
     /**
-     * Get the category that owns the product.
+     * Return the sluggable configuration array for this model.
      */
-    public function category(): BelongsTo
+    public function sluggable(): array
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 
     /**
-     * Scope a query to order products by creation date (newest first).
+     * Get the articles associated with the tag.
      */
-    public function scopeOrderedByNewest($query)
+    public function articles(): BelongsToMany
     {
-        return $query->orderBy('created_at', 'desc');
+        return $this->belongsToMany(Article::class, 'article_tag', 'tag_id', 'article_id');
     }
 }

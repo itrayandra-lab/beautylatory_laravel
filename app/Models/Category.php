@@ -41,6 +41,14 @@ class Category extends Model
     }
 
     /**
+     * Get the articles for the category.
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class, 'category_id');
+    }
+
+    /**
      * Scope a query to order categories by name alphabetically.
      */
     public function scopeOrderedByName($query)

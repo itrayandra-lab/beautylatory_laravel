@@ -83,16 +83,27 @@ class FileUploadService
      * @param string $directory
      * @return string|null
      */
-    public static function update(?UploadedFile $newFile, ?string $oldFilePath, string $directory): ?string
-    {
-        if (!$newFile) {
-            return $oldFilePath; // No new file, keep the old one
-        }
-
-        // Delete old file
-        self::delete($oldFilePath);
-
-        // Upload new file
-        return self::upload($newFile, $directory);
-    }
-}
+     public static function update(?UploadedFile $newFile, ?string $oldFilePath, string $directory): ?string
+     {
+         if (!$newFile) {
+             return $oldFilePath; // No new file, keep the old one
+         }
+ 
+         // Delete old file
+         self::delete($oldFilePath);
+ 
+         // Upload new file
+         return self::upload($newFile, $directory);
+     }
+ 
+     /**
+      * Upload an article image to public/images/articles
+      *
+      * @param UploadedFile $image
+      * @return string|null
+      */
+     public function uploadArticleImage(UploadedFile $image): ?string
+     {
+         return self::upload($image, 'articles');
+     }
+ }

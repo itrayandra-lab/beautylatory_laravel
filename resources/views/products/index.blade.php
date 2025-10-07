@@ -41,7 +41,14 @@
                                 </div>
                                 <div class="product-card__info">
                                     <h3 class="product-card__name">{{ $product->name }}</h3>
-                                    <p class="product-card__price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    <p class="product-card__price">
+                                        @if($product->discount_price && $product->discount_price < $product->price)
+                                            <span class="original-price">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                                            <span class="discounted-price">Rp {{ number_format($product->discount_price, 0, ',', '.') }}</span>
+                                        @else
+                                            Rp {{ number_format($product->price, 0, ',', '.') }}
+                                        @endif
+                                    </p>
                                 </div>
                             </a>
                         </div>
@@ -105,7 +112,12 @@
                                         </div>
                                         <div class="product-card__info">
                                             <h3 class="product-card__name">${product.name}</h3>
-                                            <p class="product-card__price">Rp ${product.price.toLocaleString('id-ID')}</p>
+                                            <p class="product-card__price">
+                                                ${product.discount_price && product.discount_price < product.price ?
+                                                    `<span class="original-price">Rp ${product.price.toLocaleString('id-ID')}</span> <span class="discounted-price">Rp ${product.discount_price.toLocaleString('id-ID')}</span>` :
+                                                    `Rp ${product.price.toLocaleString('id-ID')}`
+                                                }
+                                            </p>
                                         </div>
                                     </a>
                                 `;

@@ -20,7 +20,14 @@
                 {{-- Product Info Column --}}
                 <div class="product-detail__info">
                     <h1 class="product-detail__name">{{ $product->name }}</h1>
-                    <p class="product-detail__price">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                    @if($product->discount_price && $product->discount_price < $product->price)
+                        <p class="product-detail__price">
+                            <span class="original-price">Rp{{ number_format($product->price, 0, ',', '.') }}</span>
+                            <span class="discounted-price">Rp{{ number_format($product->discount_price, 0, ',', '.') }}</span>
+                        </p>
+                    @else
+                        <p class="product-detail__price">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                    @endif
                     <div class="product-detail__description">
                         <h3 class="description-title">Product Description</h3>
                         <p>{{ $product->description }}</p>
