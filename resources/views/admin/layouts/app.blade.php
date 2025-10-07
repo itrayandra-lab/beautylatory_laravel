@@ -99,6 +99,8 @@
                     class="sidebar-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">Categories</a>
                 <a href="{{ route('admin.products.index') }}"
                     class="sidebar-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">Products</a>
+                {{-- <a href="{{ route('admin.articles.index') }}"
+                    class="sidebar-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">Articles</a> --}}
                 <a href="{{ url('/') }}" target="_blank" class="sidebar-link">Visit Site</a>
             </nav>
             <div class="sidebar-footer">

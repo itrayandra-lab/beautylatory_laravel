@@ -4,13 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'BeautyLatory')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {!! seo() !!}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('styles')
     <style>
         .nav-container {
             max-width: var(--container-width);
             margin: 0 auto;
+        }
+
+
+        /* Load More Button Styles */
+        .load-more-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+
+        .loading-spinner {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        /* Product grid transition for smooth loading */
+        .product-card {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card.loading {
+            opacity: 0.6;
         }
 
         @media (max-width: 768px) {

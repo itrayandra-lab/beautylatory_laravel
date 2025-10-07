@@ -42,7 +42,16 @@
                             <td>{{ strlen($product->name) > 25 ? substr($product->name, 0, 25) . '...' : $product->name }}
                             </td>
                             <td>{{ $product->category->name ?? 'Uncategorized' }}</td>
-                            <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
+                            <td>
+                                @if($product->discount_price && $product->discount_price < $product->price)
+                                    <div class="price-container">
+                                        <span class="original-price-admin">{{ 'Rp ' . number_format($product->price, 0, ',', '.') }}</span>
+                                        <span class="discounted-price-admin">{{ 'Rp ' . number_format($product->discount_price, 0, ',', '.') }}</span>
+                                    </div>
+                                @else
+                                    {{ 'Rp ' . number_format($product->price, 0, ',', '.') }}
+                                @endif
+                            </td>
                             <td>
                                 <div class="action-buttons">
                                     <a href="{{ route('admin.products.edit', $product->id) }}"

@@ -47,9 +47,16 @@
             </div>
 
             <div class="form-group">
-                <label for="price" class="form-label">Price</label>
+                <label for="price" class="form-label">Original Price</label>
                 <input type="number" name="price" id="price" class="form-control"
                     value="{{ old('price', $product->price ?? '') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="discount_price" class="form-label">Discount Price (Optional)</label>
+                <input type="number" name="discount_price" id="discount_price" class="form-control"
+                    value="{{ old('discount_price', $product->discount_price ?? '') }}" min="0">
+                <small class="form-help">Leave empty if no discount is applied</small>
             </div>
 
             <div class="form-group">
