@@ -55,5 +55,9 @@
                 </tbody>
             </table>
         </div>
+        
+        <div class="pagination-container">
+            {{ $sliders->links() }}
+        </div>
     </div>
 @endsection

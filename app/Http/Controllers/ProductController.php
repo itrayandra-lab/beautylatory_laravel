@@ -17,7 +17,8 @@ class ProductController extends Controller
      */
     public function index(Request $request): View
     {
-        $products = Product::with('category')->get();
+        // Use numbered pagination; UI is simplified via CSS
+        $products = Product::with('category')->paginate(5);
         return view('admin.products.index', compact('products'));
     }
 

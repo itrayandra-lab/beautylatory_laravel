@@ -73,5 +73,9 @@
                 </tbody>
             </table>
         </div>
+        
+        <div class="pagination-container">
+            {{ $products->links() }}
+        </div>
     </div>
 @endsection

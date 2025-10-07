@@ -50,5 +50,9 @@
                 </tbody>
             </table>
         </div>
+        
+        <div class="pagination-container">
+            {{ $categories->links() }}
+        </div>
     </div>
 @endsection
