@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         // Use numbered pagination; UI is simplified via CSS
-        $products = Product::with('category')->paginate(5);
+        $products = Product::with('category')->orderBy('id', 'desc')->paginate(5);
         return view('admin.products.index', compact('products'));
     }
 
@@ -178,3 +178,4 @@ class ProductController extends Controller
         return response()->json($products);
     }
 }
+
